@@ -18,7 +18,7 @@ window.codojoAssessmentAppHref = function codojoAssessmentAppHref(path) {
   return base + path;
 };
 
-document.addEventListener("DOMContentLoaded", function () {
+function applyCodojoAssessmentLinks() {
   document.querySelectorAll("[data-codojo-assess-app]").forEach(function (el) {
     var path = el.getAttribute("data-codojo-assess-path") || "/assessment";
     el.setAttribute("href", window.codojoAssessmentAppHref(path));
@@ -31,4 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   var hint = document.getElementById("assessUrlHint");
   if (hint && !window.CODOJO_ASSESS_APP_URL) hint.hidden = false;
-});
+}
+
+// If this file loads after DOMContentLoaded (async, late inject, etc.), a bare
+// DOMContentLoaded listener would never run. readyState covers both cases.
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", applyCodojoAssessmentLinks);
+} else {
+  applyCodojoAssessmentLinks();
+}
