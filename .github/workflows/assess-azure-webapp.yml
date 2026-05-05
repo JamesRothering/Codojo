@@ -6,7 +6,7 @@ name: Deploy assess to Azure Web App
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
     paths:
       - "assess/**"
       - ".github/workflows/assess-azure-webapp.yml"
