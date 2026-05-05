@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fafbfc;
+  --foreground: #1a1d21;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--bg);
+}
+
+@layer utilities {
+  .focus-ring {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-surface-subtle;
+  }
+}

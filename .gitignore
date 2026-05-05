@@ -1,0 +1,17 @@
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+
+# Next.js (assess app)
+.next/
+assess/.next/
+node_modules/
+assess/node_modules/
+
+# Archives (source zip lives in Downloads)
+codojo-site.zip
+
+# Azure / local tooling
+.azure/

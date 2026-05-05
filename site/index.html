@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codojo | Fractional CTO · Enterprise Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0e0e0e; --paper:#f5f2ec; --accent:#c9442b; --muted:#6b6560; --rule:#d4cfc8; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:17px;line-height:1.65;overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:var(--paper);border-bottom:1px solid var(--rule);}
+  .nav-logo img{height:36px;width:36px;display:block;border-radius:6px;}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:.6rem 1.4rem;text-decoration:none;transition:background .2s;}
+  .nav-cta:hover{background:var(--accent);}
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:72px;}
+  .hero-left{padding:7rem 4rem 5rem 5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--rule);}
+  .hero-eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;animation:fadeUp .6s ease both .1s;}
+  .hero-headline{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,4vw,4.2rem);line-height:1.08;letter-spacing:-.03em;margin-bottom:2rem;animation:fadeUp .6s ease both .25s;}
+  .hero-headline em{font-style:italic;color:var(--accent);}
+  .hero-sub{font-size:1.05rem;color:var(--muted);max-width:440px;margin-bottom:3rem;font-weight:300;line-height:1.7;animation:fadeUp .6s ease both .4s;}
+  .hero-actions{display:flex;gap:1rem;align-items:center;animation:fadeUp .6s ease both .55s;}
+  .btn-primary{font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--paper);background:var(--ink);padding:.9rem 2rem;text-decoration:none;transition:background .2s;display:inline-block;}
+  .btn-primary:hover{background:var(--accent);}
+  .btn-secondary{font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--muted);padding-bottom:2px;transition:color .2s,border-color .2s;}
+  .btn-secondary:hover{color:var(--accent);border-color:var(--accent);}
+  .hero-right{padding:7rem 5rem 5rem 4rem;display:flex;flex-direction:column;justify-content:center;}
+  .stat-block{padding:2rem 0;border-bottom:1px solid var(--rule);animation:fadeUp .5s ease both;}
+  .stat-block:first-child{border-top:1px solid var(--rule);}
+  .stat-block:nth-child(1){animation-delay:.3s;} .stat-block:nth-child(2){animation-delay:.45s;} .stat-block:nth-child(3){animation-delay:.6s;} .stat-block:nth-child(4){animation-delay:.75s;}
+  .stat-num{font-family:'DM Serif Display',serif;font-size:3rem;color:var(--ink);letter-spacing:-.04em;line-height:1;margin-bottom:.3rem;}
+  .stat-label{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  section{padding:6rem 5rem;}
+  .section-label{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+  .section-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3vw,2.8rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:1.5rem;}
+  .what{background:var(--ink);color:var(--paper);}
+  .what .section-label{color:var(--accent);} .what .section-title{color:var(--paper);}
+  .what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:4rem;border-top:1px solid #2a2a2a;border-left:1px solid #2a2a2a;}
+  .what-card{padding:2.5rem;border-right:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;transition:background .2s;}
+  .what-card:hover{background:#1a1a1a;}
+  .what-card-num{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;color:var(--accent);margin-bottom:1.2rem;}
+  .what-card h3{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--paper);margin-bottom:.8rem;line-height:1.2;}
+  .what-card p{font-size:.9rem;color:#999;line-height:1.65;font-weight:300;}
+  .stories{background:var(--paper);}
+  .stories-intro{max-width:600px;color:var(--muted);margin-bottom:4rem;font-weight:300;line-height:1.75;}
+  .story-list{display:flex;flex-direction:column;}
+  .story-item{display:grid;grid-template-columns:80px 1fr 200px;align-items:start;gap:2rem;padding:2.5rem 0;border-top:1px solid var(--rule);}
+  .story-item:last-child{border-bottom:1px solid var(--rule);}
+  .story-co{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);padding-top:4px;}
+  .story-text h3{font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.5rem;line-height:1.25;}
+  .story-text p{font-size:.88rem;color:var(--muted);font-weight:300;}
+  .story-impact{text-align:right;font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);letter-spacing:.05em;line-height:1.6;padding-top:2px;}
+  .story-impact strong{color:var(--ink);font-weight:500;display:block;font-size:.9rem;}
+  .approach{background:#f0ece4;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+  .approach-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:3rem;}
+  .approach-principles{display:flex;flex-direction:column;}
+  .principle{display:flex;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid var(--rule);align-items:flex-start;}
+  .principle:first-child{border-top:1px solid var(--rule);}
+  .principle-marker{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--accent);padding-top:3px;flex-shrink:0;width:20px;}
+  .principle-text{font-size:.9rem;color:var(--ink);line-height:1.6;font-weight:300;}
+  .principle-text strong{font-weight:500;display:block;margin-bottom:.25rem;}
+  .approach-quote{display:flex;flex-direction:column;justify-content:center;}
+  .big-quote{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);line-height:1.3;letter-spacing:-.02em;color:var(--ink);margin-bottom:1.5rem;}
+  .big-quote em{color:var(--accent);font-style:italic;}
+  .quote-attr{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  .domains{background:var(--paper);}
+  .domain-tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:3rem;}
+  .domain-tag{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ink);border:1px solid var(--rule);padding:.45rem .9rem;transition:all .2s;cursor:default;}
+  .domain-tag:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .domain-tag.featured{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .domain-fintech{margin-top:3rem;padding:2.5rem;background:var(--ink);color:var(--paper);max-width:700px;}
+  .domain-fintech h3{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:1rem;color:var(--paper);}
+  .domain-fintech p{font-size:.88rem;color:#999;font-weight:300;line-height:1.65;}
+  .cta-section{background:var(--accent);color:var(--paper);text-align:center;padding:6rem 5rem;}
+  .cta-section .section-title{color:var(--paper);margin-bottom:1rem;}
+  .cta-section p{font-size:1rem;color:rgba(255,255,255,.75);margin-bottom:2.5rem;font-weight:300;}
+  .btn-white{font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--accent);background:var(--paper);padding:.9rem 2.5rem;text-decoration:none;display:inline-block;transition:background .2s,color .2s;}
+  .btn-white:hover{background:var(--ink);color:var(--paper);}
+  footer{background:var(--ink);color:var(--paper);padding:2.5rem 5rem;display:flex;align-items:center;justify-content:space-between;}
+  .foot-logo img{height:32px;width:32px;border-radius:5px;display:block;}
+  footer nav{display:flex;gap:2rem;}
+  footer nav a{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#666;text-decoration:none;transition:color .2s;}
+  footer nav a:hover{color:var(--paper);}
+  .foot-copy{font-family:'DM Mono',monospace;font-size:.68rem;color:#555;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @media(max-width:900px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}.hero{grid-template-columns:1fr;}.hero-left{padding:5rem 2rem 2rem;border-right:none;border-bottom:1px solid var(--rule);}.hero-right{padding:2rem;}.what-grid{grid-template-columns:1fr;}section{padding:4rem 2rem;}.approach-grid{grid-template-columns:1fr;gap:3rem;}.story-item{grid-template-columns:1fr;gap:.5rem;}.story-impact{text-align:left;}footer{flex-direction:column;gap:1.5rem;text-align:center;padding:2rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/"><img src="data:image/jpeg;base64,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" alt="Codojo"></a>
+  <ul class="nav-links">
+    <li><a href="#what">Services</a></li>
+    <li><a href="/work/">Work</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/assess/">Assess</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="/contact/">Start a Conversation</a>
+</nav>
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Fractional CTO · Enterprise Architect · Los Angeles</p>
+    <h1 class="hero-headline">I work where<br>things are<br><em>supposed to be stuck.</em></h1>
+    <p class="hero-sub">Legacy systems. Political constraints. Aggressive timelines. Regulatory pressure. These are the environments I've spent my career in—bridging business intent and technical execution, going as deep into the stack as the problem demands.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="/contact/">Engage Codojo</a>
+      <a class="btn-secondary" href="/work/">Read the work →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-block"><div class="stat-num">13+</div><div class="stat-label">Years consulting under Codojo</div></div>
+    <div class="stat-block"><div class="stat-num">$16M+</div><div class="stat-label">In losses avoided &amp; revenue protected</div></div>
+    <div class="stat-block"><div class="stat-num">1.5M</div><div class="stat-label">TPS stabilized at Hulu Super Bowl peak</div></div>
+    <div class="stat-block"><div class="stat-num">5,783</div><div class="stat-label">Pieces of kit migrated with zero downtime at BNP</div></div>
+  </div>
+</section>
+<section class="what" id="what">
+  <p class="section-label">Services</p>
+  <h2 class="section-title">What Codojo Delivers</h2>
+  <div class="what-grid">
+    <div class="what-card"><div class="what-card-num">01</div><h3>Fractional CTO</h3><p>Strategic technology leadership without the full-time overhead. I align your technical roadmap to business outcomes, own the architecture, and hold accountability that a part-time advisor doesn't.</p></div>
+    <div class="what-card"><div class="what-card-num">02</div><h3>Cloud Architecture</h3><p>AWS primary, Azure fluent, GCP when needed. VPC design, Kubernetes, EC2, security controls, hybrid environments, and migration paths from legacy to modern infrastructure.</p></div>
+    <div class="what-card"><div class="what-card-num">03</div><h3>Data Platform &amp; Cassandra</h3><p>Deep NoSQL and Cassandra expertise across financial services, media, and regulated industries. From 1.5M TPS at Hulu to bank-wide fraud detection at M&amp;T. DataStax certified.</p></div>
+    <div class="what-card"><div class="what-card-num">04</div><h3>Legacy Modernization</h3><p>I create forward motion when teams are blocked. Whether the constraint is political, technical, or architectural, I find the workable path and build it—without waiting for conditions to be perfect.</p></div>
+    <div class="what-card"><div class="what-card-num">05</div><h3>Regulated Industry Delivery</h3><p>Financial services, investment banking, insurance, healthcare-adjacent. I understand compliance pressure, regulatory timelines, and how to deliver under them without cutting corners that matter.</p></div>
+    <div class="what-card"><div class="what-card-num">06</div><h3>Executive Alignment</h3><p>I translate between the C-suite and the engineering floor. When business leaders doubt the requirements, I build the prototype overnight. That kind of conviction wins projects.</p></div>
+  </div>
+</section>
+<section class="stories" id="stories">
+  <p class="section-label">Selected Work</p>
+  <h2 class="section-title">The Work That Defines the Practice</h2>
+  <p class="stories-intro">These aren't summaries of job descriptions. They're the situations where strategy, architecture, technology, and execution all mattered at once—and where "not possible" had to become "already in motion."</p>
+  <div class="story-list">
+    <div class="story-item"><div class="story-co">TransUnion</div><div class="story-text"><h3>From 3 incidents a week to zero—in one month</h3><p>Reviewed application, infrastructure, and database architecture for Buró de Crédito Mexico. Authored a 70-page remediation roadmap. Designed a RAG-based anti-fraud system with AML integration.</p></div><div class="story-impact"><strong>$6M/yr</strong> in lost revenue avoided</div></div>
+    <div class="story-item"><div class="story-co">BNP Paribas</div><div class="story-text"><h3>Zero-downtime datacenter migration under regulatory pressure</h3><p>Led a major datacenter and DR relocation for an investment bank. Interviewed stakeholders, built the move methodology, secured buy-in, and executed ahead of schedule across 54 floors of trading systems.</p></div><div class="story-impact"><strong>~$10M</strong> in regulatory fines avoided · 5,783 pieces of kit</div></div>
+    <div class="story-item"><div class="story-co">Hulu</div><div class="story-text"><h3>Stabilizing 1.5M TPS through Super Bowl peak</h3><p>Optimized hybrid Cassandra cluster using AWS scaling scripts and operational tuning under one of the highest traffic events in streaming history.</p></div><div class="story-impact"><strong>1.5M TPS</strong> sustained peak load</div></div>
+    <div class="story-item"><div class="story-co">McDonald's</div><div class="story-text"><h3>Global mobile ordering stability across US, Canada, UK, China</h3><p>Stabilized Cassandra clusters powering every mobile and kiosk order. Operations, code review, and data model review across four markets.</p></div><div class="story-impact">Global scale · 4 markets</div></div>
+    <div class="story-item"><div class="story-co">Iesy</div><div class="story-text"><h3>Designing around a political deadlock</h3><p>Built a generic database, a screen-scraping capture layer, and a transformer that mapped source calls—turning a political wall into a working engineering path. Cut months of delay.</p></div><div class="story-impact">Months of delay eliminated</div></div>
+  </div>
+</section>
+<section class="approach" id="approach">
+  <p class="section-label">How I Work</p>
+  <h2 class="section-title">The Principles That Drive Delivery</h2>
+  <div class="approach-grid">
+    <div class="approach-principles">
+      <div class="principle"><span class="principle-marker">—</span><div class="principle-text"><strong>Constraints are part of the system</strong>If access is blocked or dependencies are frozen, I don't wait—I design around them.</div></div>
+      <div class="principle"><span class="principle-marker">—</span><div class="principle-text"><strong>Create motion early</strong>A partial but working system beats a perfect design that hasn't started.</div></div>
+      <div class="principle"><span class="principle-marker">—</span><div class="principle-text"><strong>Use working software to align people</strong>A prototype will resolve more debate than a slide deck. I've stayed up all night building one to save a project.</div></div>
+      <div class="principle"><span class="principle-marker">—</span><div class="principle-text"><strong>Go deep when it matters</strong>I'll step into code or infrastructure directly if that's the fastest way to get clarity.</div></div>
+      <div class="principle"><span class="principle-marker">—</span><div class="principle-text"><strong>Connect business intent to technical reality</strong>Systems fail when those drift apart. I keep them aligned across the executive floor and the engineering floor.</div></div>
+    </div>
+    <div class="approach-quote">
+      <p class="big-quote">"The most <em>efficient facilitator</em> I have ever seen."</p>
+      <p class="quote-attr">— Senior Trading Executive, BNP Paribas, after the zero-downtime datacenter migration</p>
+    </div>
+  </div>
+</section>
+<section class="domains" id="domains">
+  <p class="section-label">Domain Expertise</p>
+  <h2 class="section-title">Where I've Worked Deeply</h2>
+  <div class="domain-tags">
+    <span class="domain-tag featured">AWS</span><span class="domain-tag featured">Apache Cassandra / DSE</span><span class="domain-tag featured">Azure</span><span class="domain-tag">Kubernetes</span><span class="domain-tag">VPC Design</span><span class="domain-tag">GCP</span><span class="domain-tag">CI/CD</span><span class="domain-tag">SRE</span><span class="domain-tag">Disaster Recovery</span><span class="domain-tag">Infrastructure as Code</span><span class="domain-tag">NoSQL</span><span class="domain-tag">Kafka</span><span class="domain-tag">Spark</span><span class="domain-tag">Neo4j</span><span class="domain-tag">Security Hardening</span><span class="domain-tag">LDAP / Encryption</span><span class="domain-tag">RAG / AI Systems</span><span class="domain-tag">Financial Services</span><span class="domain-tag">Fintech</span><span class="domain-tag">IoT Platforms</span><span class="domain-tag">DataStax Certified</span>
+  </div>
+  <div class="domain-fintech">
+    <h3>Deep Fintech Fluency</h3>
+    <p>Mortgage-backed securities, credit derivatives, rates &amp; FX, equities, corporate actions, fraud detection, wealth management. Built through hands-on delivery at Fannie Mae, BNP Paribas, JPMC, UBS, M&amp;T Bank, Merrill Lynch, GreenDot, and Toyota Bank—and three hours daily on a Wall Street commute I refused to waste.</p>
+  </div>
+</section>
+<section class="cta-section">
+  <p class="section-label" style="color:rgba(255,255,255,.6);">Engage Codojo</p>
+  <h2 class="section-title">Let's Figure Out<br>What's Actually Possible</h2>
+  <p>Fractional CTO engagements · Architecture review · Cloud and data platform modernization</p>
+  <a class="btn-white" href="/contact/">Start a Conversation</a>
+</section>
+<footer>
+  <a class="foot-logo" href="/"><img src="data:image/jpeg;base64,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" alt="Codojo"></a>
+  <nav>
+    <a href="/work/">Work</a>
+    <a href="/about/">About</a>
+    <a href="/assess/">Assess</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://www.linkedin.com/in/jamesrothering/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/JamesRothering" target="_blank">GitHub</a>
+  </nav>
+  <p class="foot-copy">© 2026 Codojo Inc. · Los Angeles, CA</p>
+</footer>
+</body>
+</html>

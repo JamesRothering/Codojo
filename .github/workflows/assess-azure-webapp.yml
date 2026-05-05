@@ -1,0 +1,40 @@
+# Deploy Next.js app in assess/ to Azure App Service (optional)
+# Requires secrets: AZURE_WEBAPP_NAME, AZURE_WEBAPP_PUBLISH_PROFILE
+# Enable by fixing the `if: false` condition below after secrets are set.
+
+name: Deploy assess to Azure Web App
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assess/**"
+      - ".github/workflows/assess-azure-webapp.yml"
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    if: false # set to: github.ref == 'refs/heads/main' after configuring Azure secrets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: assess/package-lock.json
+
+      - name: Install and build
+        run: |
+          cd assess
+          npm ci
+          npm run build
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: assess
