@@ -87,4 +87,4 @@ az functionapp config appsettings set \
 ## Notes
 - All HTML files are self-contained (logo is base64-embedded, no external image deps)
 - Google Fonts load from CDN — works offline via browser cache after first load
-- The `staticwebapp.config.json` handles clean URLs (/work → /work/index.html)
+- Nav links use explicit paths (`/work/index.html`, etc.). `staticwebapp.config.json` sets API runtime and headers only — no SPA-style 404→home rewrite (that made every miss look like one page).

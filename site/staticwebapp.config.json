@@ -2,9 +2,6 @@
   "platform": {
     "apiRuntime": "node:20"
   },
-  "responseOverrides": {
-    "404": { "rewrite": "/index.html" }
-  },
   "globalHeaders": {
     "X-Frame-Options": "SAMEORIGIN",
     "X-Content-Type-Options": "nosniff",
