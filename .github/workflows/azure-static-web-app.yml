@@ -3,7 +3,7 @@
 
 name: Azure Static Web Apps CI/CD
 
-# Serialize deploys. Pushing to both main and master (or two workflows) in parallel often yields
+# Serialize deploys. Parallel uploads to the same SWA often yield
 # "Deployment Canceled" during polling — Azure superseded the in-flight deployment.
 concurrency:
   group: swa-codojo-production
@@ -11,10 +11,10 @@ concurrency:
 
 on:
   push:
-    branches: [main, master]
+    branches: [master]
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches: [main, master]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -45,8 +45,8 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_BUSH_05288E01E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: upload
-          # Must match GitHub default branch and Azure SWA "production branch" or deploys can fail oddly during polling.
-          production_branch: ${{ github.event.repository.default_branch }}
+          # GitHub default + Azure SWA production branch for this repo is master (single branch; avoids duplicate runs).
+          production_branch: master
           app_location: site
           api_location: site/api
           output_location: ""

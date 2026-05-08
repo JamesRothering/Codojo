@@ -1,13 +1,9 @@
 {
   "routes": [
     { "route": "/work", "rewrite": "/work/index.html" },
-    { "route": "/work/", "rewrite": "/work/index.html" },
     { "route": "/about", "rewrite": "/about/index.html" },
-    { "route": "/about/", "rewrite": "/about/index.html" },
     { "route": "/contact", "rewrite": "/contact/index.html" },
-    { "route": "/contact/", "rewrite": "/contact/index.html" },
-    { "route": "/assess", "rewrite": "/assess/index.html" },
-    { "route": "/assess/", "rewrite": "/assess/index.html" }
+    { "route": "/assess", "rewrite": "/assess/index.html" }
   ],
   "platform": {
     "apiRuntime": "node:20"
