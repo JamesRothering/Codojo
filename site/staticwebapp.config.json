@@ -5,6 +5,9 @@
     { "route": "/contact", "rewrite": "/contact/index.html" },
     { "route": "/assess", "rewrite": "/assess/index.html" }
   ],
+  "platform": {
+    "apiRuntime": "node:20"
+  },
   "responseOverrides": {
     "404": { "rewrite": "/index.html" }
   },
