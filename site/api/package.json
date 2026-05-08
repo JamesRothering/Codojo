@@ -1,0 +1,6 @@
+{
+  "name": "codojo-swa-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Azure Functions API for Codojo Static Web App (notify)"
+}
