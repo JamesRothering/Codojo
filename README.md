@@ -64,4 +64,4 @@ git remote add origin https://github.com/YOU/YOUR-REPO.git
 git push -u origin main
 ```
 
-After the Static Web App is created in Azure and connected to the repo, add the deployment token as `AZURE_STATIC_WEB_APPS_API_TOKEN` (see deploy doc).
+After the Static Web App is created in Azure and connected to the repo, ensure the GitHub Actions secret name matches [`.github/workflows/azure-static-web-app.yml`](.github/workflows/azure-static-web-app.yml) (currently `AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_BUSH_05288E01E`); see [`docs/DEPLOY-AZURE.md`](docs/DEPLOY-AZURE.md).
